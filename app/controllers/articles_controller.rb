@@ -1,4 +1,13 @@
 class ArticlesController < ApplicationController
+
+  def index
+    @articles = Article.all
+  end
+
+  def show
+    @article = Article.find params[:id]
+  end
+
   def new
     @article = Article.new
   end
@@ -7,16 +16,12 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-  def show
-    @article = Article.find params[:id]
-  end
-
   def create
     @article = Article.new article_params
     if @article.save
       redirect_to @article
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -26,12 +31,8 @@ class ArticlesController < ApplicationController
     if @article.update(article_params)
       redirect_to @article
     else
-      render 'edit'
+      render :edit
     end
-  end
-
-  def index
-    @articles = Article.all
   end
 
   private
